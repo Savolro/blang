@@ -1,0 +1,91 @@
+
+	while 1 == 1 && !(2 != 2 || 3 < 2):
+		if age < currentYear - birthYear:
+			break
+		else:
+			continue
+		age += 1
+
+<LOOP_STMT>
+<WHILE_STMT>
+while <EXPR> : <STMT_BLOCK>
+while <OR> : <STMT_BLOCK>
+while <AND> : <STMT_BLOCK>
+while <AND> && <CMP_E> : <STMT_BLOCK>
+while <CMP_E> && <CMP_E> : <STMT_BLOCK>
+while <CMP_E> <CMP_E_C> <CMP_LG> && <CMP_E> : <STMT_BLOCK>
+...
+while <CONST> <CMP_E_C> <CMP_LG> && <CMP_E> : <STMT_BLOCK>
+while 1 <CMP_E_C> <CMP_LG> && <CMP_E> : <STMT_BLOCK>
+while 1 == <CMP_LG> && <CMP_E> : <STMT_BLOCK>
+...
+while 1 == <CONST> && <CMP_E> : <STMT_BLOCK>
+while 1 == 1 && <CMP_E> : <STMT_BLOCK>
+...
+while 1 == 1 && <NOT> : <STMT_BLOCK>
+while 1 == 1 && <NOT_C> <ADD> : <STMT_BLOCK>
+while 1 == 1 && ! <ADD> : <STMT_BLOCK>
+...
+while 1 == 1 && ! <PRIMARY> : <STMT_BLOCK>
+while 1 == 1 && !(<EXPR>) : <STMT_BLOCK>
+...
+while 1 == 1 && !(<OR>) : <STMT_BLOCK>
+while 1 == 1 && !(<OR> || <AND>) : <STMT_BLOCK>
+...
+while 1 == 1 && !(<OR> || <AND>) : <STMT_BLOCK>
+...
+while 1 == 1 && !(<CMP_E> || <AND>) : <STMT_BLOCK>
+...
+while 1 == 1 && !(<2 != 2> || <AND>) : <STMT_BLOCK>
+...
+while 1 == 1 && !(2 != 2 || <AND>) : <STMT_BLOCK>
+...
+while 1 == 1 && !(2 != 2 || <AND>) : <STMT_BLOCK>
+...
+while 1 == 1 && !(2 != 2 || <CMP_LG>) : <STMT_BLOCK>
+while 1 == 1 && !(2!=2 || 3>2): <STMT_BLOCK>
+while 1 == 1 && !(2!=2 || 3>2): <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): <STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): <COND_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): <IF_STMT> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): <IF_STMT> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if <COND_BODY> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if <EXPR> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if <EXPR> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+...
+while 1 == 1 && !(2!=2 || 3>2): if <CMP_LG> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+...
+while 1 == 1 && !(2!=2 || 3>2): if <CMP_LG> < <NOT> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+...
+while 1 == 1 && !(2!=2 || 3>2): if <IDENT> < <NOT> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+...
+while 1 == 1 && !(2!=2 || 3>2): if age < <NOT> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+...
+while 1 == 1 && !(2!=2 || 3>2): if age < <NOT> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+...
+while 1 == 1 && !(2!=2 || 3>2): if age < <ADD> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+...
+while 1 == 1 && !(2!=2 || 3>2): if age < <IDENT> - <IDENT> : <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: <STMT_BLOCK> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: <STMTS> <END> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: <STMT> <END> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: <INLOOP_STMT> <END> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: break <STMT_END> <END> <ELSE_STMT> <STMTS> <END>
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: break
+<END> <ELSE_STMT> <STMTS> <END>
+
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: break
+else: <STMT_BLOCK> <STMTS> <END>
+
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: break
+else: <STMT_BLOCK> <STMTS> <END>
+
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: break
+else: <STMTS> <END> <STMTS> <END>
+
+while 1 == 1 && !(2!=2 || 3>2): if age < currentYear - birthYear: break
+else: <STMT> <END> <STMTS> <END>
+...
+else: <STMT> <END> <STMTS> <END>
+

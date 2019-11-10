@@ -1,0 +1,38 @@
+// simple type
+type Date:
+	int year
+	int month
+	int day
+
+// complex type
+type Person:
+	string name
+	int age
+	float height
+	Date birthDate
+
+// global variable
+int currentYear = 2019
+
+fn main():
+	int birthYear = 1980
+	Person p = Person {
+		name: "Jonas \"Jonaitis\"", 
+		height: 1.81, 
+		birthDate: Date {
+			year: birthYear,
+			month: 1,
+			day: 2
+		}
+	print(getAge(p))
+
+// FIXME: include month and day to calculation
+fn getAge(Person p) int:
+	int age = 0
+	while 1 == 1 && !(2 != 2 || 3 < 2):
+		if age < currentYear - birthYear:
+			break
+		else:
+			continue
+		age += 1
+	return currentYear - birthYear

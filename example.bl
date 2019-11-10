@@ -1,0 +1,9 @@
+// simple type
+type Date:
+	int year
+	int month
+	float day
+
+fn main():
+	int c = d
+	return a == b

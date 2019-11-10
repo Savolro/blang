@@ -1,0 +1,99 @@
+<START> ::= <DECLS>
+<DECLS> ::= <DECL> | <DECL> <DECLS>
+<DECL> ::= <FN_DECL> | <VAR_DECL> | <TYPE_DECL>
+
+; declarations
+; function
+<FN_DECL> ::= <FN_DECL_BODY> ":" <STMT_BLOCK>
+<FN_DECL_BODY> ::= "fn" <IDENT> <PARAMS_BODY> <TYPE> | "fn" <IDENT> <PARAMS_BODY>
+<PARAMS_BODY> ::= "()" | "(" <PARAMS> ")"
+<PARAMS> ::= <PARAM> | <PARAM> "," <PARAMS>
+<PARAM> ::= <TYPE> <IDENT>
+
+; type
+<TYPE_DECL> ::= "type" <IDENT> ":" <FIELDS_DECL> <END>
+<FIELDS_DECL> ::= <FIELD_DECL> | <FIELD_DECL> <FIELDS_DECL>
+<FIELD_DECL> ::= <TYPE> <IDENT>
+; variable
+<VAR_DECL> ::= <TYPE> <IDENT> <STMT_END> | <TYPE> <IDENT> "=" <EXPR> <STMT_END>
+
+<STMT_BLOCK> ::= <STMTS> <END>
+<STMTS> ::=  <STMT> | <STMT> <STMTS>
+<STMT> ::= <VAR_DECL> | <RETURN_STMT> | <LOOP_STMT> | <EXPR_STMT> | <COND_STMT> | <ASSIGN_STMT> | <INLOOP_STMT>
+
+; statements
+<LOOP_STMT> ::= <WHILE_STMT>
+<COND_STMT> ::= <IF_STMT> | <IF_STMT> <ELSE_STMT> | <IF_STMT> <ELIF_STMTS> | <IF_STMT> <ELIF_STMTS> <ELSE_STMT> 
+<ASSIGN_STMT> ::= <IDENT> <ASSIGN_C> <EXPR> <STMT_END>
+<EXPR_STMT> ::= <EXPR> <STMT_END>
+
+; if
+<IF_STMT> ::= "if" <COND_BODY>
+<ELSE_STMT> ::= "else" <COND_BODY> | "else:" <STMT_BLOCK>
+<ELIF_STMT> ::= "elif" <COND_BODY>
+<ELIF_STMTS> ::= <ELIF_STMT> | <ELIF_STMT> <ELIF_STMTS>
+<COND_BODY> ::= <EXPR> ":" <STMT_BLOCK>
+<STMT_END> ::= "\n"
+
+; while
+<WHILE_STMT> ::= "while" <EXPR> ":" <STMT_BLOCK>
+
+; builtin statements
+<RETURN_STMT> ::= "return" <STMT_END> | "return" <EXPR>
+<INLOOP_STMT> ::= "break" <STMT_END> | "continue" <STMT_END>
+
+<ASSIGN_C> ::= "=" | "+=" | "*=" | "-=" | "/="
+
+<EXPRS> ::= <EXPR> | <EXPR> "," <EXPR>
+
+<EXPR> ::= <OR>
+<OR> ::= <AND> | <OR> "||" <AND>
+<AND> ::= <CMP_E> | <AND> "&&" <CMP_E>
+<CMP_E> ::= <CMP_LG> | <CMP_E> <CMP_E_C> <CMP_LG>
+<CMP_E_C> ::= "==" | "!="
+<CMP_LG> ::= <NOT> | <CMP_LG> <CMP_LG_C> <NOT>
+<CMP_LG_C> ::= "<=" | ">=" | "<" | ">"
+<NOT> ::= <ADD> | <NOT_C> <ADD>
+<NOT_C> ::= "!"
+<ADD> ::= <MUL> | <ADD> <ADD_C> <MUL>
+<ADD_C> ::= "+" | "-"
+<MUL> ::= <PRIMARY> | <MUL> <MUL_C> <PRIMARY> 
+<MUL_C> ::= "*" | "/" | "%"
+<PRIMARY> ::= <CONST> | <IDENT> | <FN_CALL> | <TYPE_EXPR> | <FIELD_EXPR> | "(" <EXPR> ")"
+
+<FN_CALL> ::= <IDENT> "(" <EXPRS> ")"
+<TYPE_EXPR> ::= <IDENT> { <FIELDS_ASSIGN> }
+<FIELD_EXPR> ::= <IDENT> | <IDENT> "." <FIELD_EXPR>
+<FIELDS_ASSIGN> ::= <FIELD_ASSIGN> | <FIELD_ASSIGN> "," <FIELDS_ASSIGN>
+<FIELD_ASSIGN> ::= <IDENT> ":" <EXPR>
+<TYPE> ::= <BUILTIN_TYPE> | <IDENT>
+<BUILTIN_TYPE> ::= "int" | "float" | "string" | "bool"
+
+<CONST> ::= <NUMBER> | <STRING> | <BOOL_CONST>
+<BOOL_CONST> ::= "true" | "false"
+<COMMENT> ::= "//" <ANY_CHARS> <STMT_END>
+<ANY_C> ::= 0x00 | 0x01 | ... | 0xFF
+<ANY_CHARS> ::= <ANY_C> | <ANY_C> <ANY_CHARS>
+
+<STRING> ::= "\"\"" | "\"" <STRING_CHARS> "\""
+<STRING_CHARS> ::= <STRING_C> | <STRING_C> <STRING_CHARS>
+; skipping 0x22 (") and 0x5C (\)
+<STRING_C> ::= 0x00 | 0x01 | ... | 0x21 | 0x23 | ... | 0x5B | 0x5D | ... | 0xFF | <ESCAPED_C>
+; " and \ are only allowed to be used in such forms
+<ESCAPED_C> ::= "\\\\\\\"" | "\\\\" | "\\n" | "\\t"
+
+<END> ::= 0xFF
+<WHITESPACE> ::= " " | "\n" | "\t"
+<WHITESPACES> ::= <WHITESPACE> | <WHITESPACE> <WHITESPACES>
+<IDENT> ::= <LETTER> | <LETTER> <ANY_IDENT>
+; ANY_IDENT is IDENT without first character
+<ANY_IDENT> ::= <ANY_IDENT_C> | <ANY_IDENT_C> <ANY_IDENT>
+<ANY_IDENT_C> ::= <LETTER> | <DIGIT>
+
+<NUMBER> ::= <BASIC_NUMBER> | <BASIC_NUMBER> "e" <DIGITS>
+<BASIC_NUMBER> ::= <DIGITS> | <DIGITS> "." <DIGITS> | "." <DIGITS> | <DIGITS> "."
+<DIGITS> ::= <DIGIT> | <DIGIT> <DIGITS>
+<DIGIT> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<LETTER> ::= <L_LETTER> | <U_LETTER>
+<L_LETTER> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "_"
+<U_LETTER> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"

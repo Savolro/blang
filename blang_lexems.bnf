@@ -1,0 +1,14 @@
+<START> ::= <KEYWORD> | <IDENT> | <CONST>
+<KEYWORD> ::= <KW_ELIF> | <KW_ELSE>
+<CONST> ::= <IDENT>
+<KW_WHILE> ::= "while"
+; <KW_IF> ::= "if"
+<KW_ELIF> ::= "elif"
+<KW_ELSE> ::= "else"
+<IDENT> ::= <LETTER> | <LETTER> <ANY_IDENT>
+<ANY_IDENT> ::= <ANY_IDENT_C> | <ANY_IDENT_C> <ANY_IDENT>
+<ANY_IDENT_C> ::= <LETTER> | <DIGIT>
+<LETTER> ::= <L_LETTER> | <U_LETTER>
+<L_LETTER> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "_"
+<U_LETTER> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
+<DIGIT> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
