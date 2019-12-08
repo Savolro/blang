@@ -1,4 +1,4 @@
-module github.com/Savolro/tm-lexer
+module github.com/Savolro/blang/lexer
 
 go 1.12
 

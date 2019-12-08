@@ -3,30 +3,19 @@ package bnf
 import (
 	"errors"
 	"fmt"
+	"github.com/Savolro/blang/lexer/pkg/states/generate"
 	"strings"
 )
 
-// Rule defines any rule defined in BNF
-type Rule struct {
-	Name    string
-	Options []RuleOption
-}
-
-// RuleOption defines one of rule options
-type RuleOption struct {
-	IsConstant bool
-	Value      []string
-}
-
 // Parse parses slice of BNF content lines into BNF rule map
-func Parse(content []byte) (rules map[string]Rule, err error) {
-	rules = map[string]Rule{}
+func Parse(content []byte) (rules map[string]generate.Rule, err error) {
+	rules = map[string]generate.Rule{}
 	lines := strings.Split(string(content), "\n")
 	for _, line := range lines[:len(lines)-1] {
 		line = strings.Replace(line, " ", "", -1)
 		line = strings.Replace(line, "\t", "", -1)
 		// Ignore comments
-		if strings.HasPrefix(line, ";") || line == "" {
+		if strings.HasPrefix(line, ";") || line == "" || strings.HasPrefix(line, "//") {
 			continue
 		}
 		parts := strings.Split(line, "::=")
@@ -38,7 +27,7 @@ func Parse(content []byte) (rules map[string]Rule, err error) {
 			return nil, fmt.Errorf("rule %s is defined multiple times", ruleName)
 		}
 
-		rule := Rule{
+		rule := generate.Rule{
 			Name: ruleName,
 		}
 
@@ -55,7 +44,7 @@ func Parse(content []byte) (rules map[string]Rule, err error) {
 			} else {
 				return nil, errors.New("options should either point to rules or be constants")
 			}
-			rule.Options = append(rule.Options, RuleOption{
+			rule.Options = append(rule.Options, generate.RuleOption{
 				IsConstant: isConstant,
 				Value:      value,
 			})
